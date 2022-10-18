@@ -9,5 +9,4 @@ jobs:
 
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
 install: pip install -r requirements.txt
-script: cd ./test
-script: python test_breaker.py
+script: python test/test_breaker.py
