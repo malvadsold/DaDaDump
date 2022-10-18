@@ -9,12 +9,6 @@ import Breaker, contextlib, os
 
 fetcher = Breaker.Fetcher("test@gmail.com", True)
 
-class HaveBeenPwnedTests(unittest.TestCase):
-    def test_pwned_true(self):
-        self.assertEqual(Breaker.CheckPwned.check_pwned("admin@admin.com"), True)
-    def test_pwned_false(self):
-        self.assertEqual(Breaker.CheckPwned.check_pwned("falseemail@randomdomainthatdoesnotexist.com"), False)
-
 class HashesTests(unittest.TestCase):
     def test_csrf_token(self):
         csrf_token_length = 32
