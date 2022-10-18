@@ -13,6 +13,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from tabulate import tabulate
 import time, requests
+import os
+CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 #Esta clase se encarga de manejar la configuracion del software
 class ConfigReader:
@@ -27,8 +29,10 @@ class ConfigReader:
         print("[*] - Leyendo archivo de configuracion")
         import os
         print("[*] - Directorio actual: " + os.getcwd())
-        import os.path
-        config_path = os.path.join(os.getcwd(), "./Config/config.ini")
+        import os.path        
+        CURRENT_PATH_CONFIG = os.path.join(CURRENT_PATH, "../../Config/config.ini")
+        print(CURRENT_PATH_CONFIG)
+        config_path = os.path.join(os.getcwd(), CURRENT_PATH_CONFIG)
         config.read(config_path)
         self.MAX_TRIES = config['SOFTWARE']['MAX_TRIES']
         self.MD5_DECRYPT_EMAIL = config['HASH']['MD5_DECRYPT_EMAIL']

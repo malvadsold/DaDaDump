@@ -1,23 +1,9 @@
-import shutil
 import os
-
-def create_folder(folder):
-    if not os.path.exists(folder):
-        os.makedirs(folder)
-    return folder
-
-def create_file(path, data):
-    with open(path, 'w') as f:
-        f.write(data)
-create_folder('Config')
-
-create_file('./Config/config.ini', '')
-shutil.copyfile('../Config/config.ini', './Config/config.ini')
-
 import unittest
 import sys
 
-sys.path.append('../src')
+SRC_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) + '/src'
+sys.path.append(SRC_FOLDER)
 
 import Breaker, contextlib, os
 
@@ -53,20 +39,14 @@ class FetcherTests(unittest.TestCase):
     def test_pattern(self):
         self.assertEqual(fetcher.pattern, "test@gmail.com")
     def test_max_tries(self):
-        import configparser
-        config = configparser.ConfigParser()
-        config.read('./Config/config.ini')
-        self.assertEqual(fetcher.max_tries, int(config['SOFTWARE']['MAX_TRIES']))
+        FETCHER_TRIES = Breaker.SOFTWARE_CONFIG.MAX_TRIES
+        self.assertEqual(fetcher.max_tries, int(FETCHER_TRIES))
     def test_software_hash_email(self):
-        import configparser
-        config = configparser.ConfigParser()
-        config.read('./Config/config.ini')
-        self.assertEqual(Breaker.SOFTWARE_CONFIG.MD5_DECRYPT_EMAIL, config['HASH']['MD5_DECRYPT_EMAIL'])
+        HASH_DATA = len(Breaker.SOFTWARE_CONFIG.MD5_DECRYPT_EMAIL) not in [0, None]
+        self.assertEqual(HASH_DATA, True)
     def test_software_hash_password(self):
-        import configparser
-        config = configparser.ConfigParser()
-        config.read('./Config/config.ini')
-        self.assertEqual(Breaker.SOFTWARE_CONFIG.MD5_DECRYPT_PASSWORD, config['HASH']['MD5_DECRYPT_PASSWORD'])
+        HASH_DATA = len(Breaker.SOFTWARE_CONFIG.MD5_DECRYPT_PASSWORD) not in [0, None]
+        self.assertEqual(HASH_DATA, True)
     def test_source(self):
         self.assertEqual(fetcher.source, "https://breachdirectory.org/usersearch.php?term=")
     def test_google_captcha_anchor_url(self):
