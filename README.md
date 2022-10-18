@@ -112,7 +112,7 @@ MAX_TRIES=5
 ```
 python test/test_breaker.py
 ```
-* Todos los cambios de este software llegan a la rama master posteriormente de su respectivo build usando Travis en una máquina virtual
+* Todos los cambios de este software llegan a la rama master posteriormente de su respectivo build usando Travis en una máquina virtual, en caso de versiones en la rama main con builds en estado failed, se debe a tests basados en configuración de usuario.
 ```
 jobs:
   include:
